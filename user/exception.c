@@ -49,8 +49,16 @@ int main(int argc, char **argv)
 		abort();
 	}
 
-	close(fd);
 	c =  1/0;
 	printf("Result of divide by zero is %d\n", c);
+
+	if (ioctl(fd, UNREGISTER_HANDLER, NULL) != 0)
+	{
+		perror("ioctl COUNT_DIVBYZERO error");
+		abort();
+	}
+
+	close(fd);
+
 	return 0;
 }
